@@ -1,0 +1,24 @@
+extends interface.pug
+
+block contenu
+    section.pricing.py-5
+        h1 Liste des différents themes
+        .container
+            .row
+            // Free Tier
+            each theme in list
+                .col-lg-4.itheme
+                    .card.mb-5.mb-lg-0
+                    .card-body
+                        h5.card-title.text-uppercase.text-center=theme.nom
+                        -var phrase = "Réalisé par artiste id : "+theme.id_artiste
+                        -var phrase2 = "Theme n°"+theme.id
+                        p.card-price.text-muted.text-center=phrase2
+                        p.card-price.text-muted.text-center=phrase
+                        hr
+                        
+                        -var cheminC = "/captcha/"+theme.id
+                        -var cheminD = "/delete/"+theme.id
+                        a.btn.btn-block.btn-secondary.text-uppercase(href=cheminC) Utilisez theme
+                        //- a(href=cheminD)
+                        //-     p.red Supprimer le theme

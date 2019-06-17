@@ -1,0 +1,136 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    title Cap Chat
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', type='text/css', media='screen', href='style.css')
+    script(type='text/javascript', src='http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js')
+    // <script type="text/javascript" src="chrono/TimeCircles.js"></script>
+    link(rel='stylesheet', href='chrono/TimeCircles.css')
+  body(onload='initCapchat()')
+    .captcha
+      div
+        p#indice
+      ul#images.images
+    #CountDownTimer(data-timer='60', style='width: 1000px; height: 250px;')
+    script.
+
+        alert('wsh');
+      document.addEventListener("load", function() {
+      // console.log("wsh");
+      alert('ready');
+      while(reponse == false){
+      setTimeout(resetCaptcha, 60*1000);
+      }
+      });
+      var reponse = false;
+      // $("#CountDownTimer").TimeCircles().start();
+      initCapchat();
+      // function againCaptcha(){
+      //     alert('ready');
+      //     while(reponse == false){
+      //         setTimeout(resetCaptcha, 60*1000);
+      //     }
+      // }
+      function restartCaptcha(){
+      resetCaptcha();
+      $("#CountDownTimer").TimeCircles().restart();
+      }
+      function resetCaptcha(){
+      var monIndice = document.getElementById('indice');
+      monIndice.innerHTML = null;
+      var mesImages = document.getElementById('images');
+      var index = mesImages.children.length;
+      for(var i = 0; i<index; i++){
+      var limage = document.getElementById(i);
+      console.log(limage);
+      console.log(i);
+      limage.remove();
+      }
+      initCapchat();
+      }
+      function initCapchat(){
+      var tabCapcha = [];
+      var tabNeutres = [1,2,3,4,5,6,7,8,9,10,11,12,13];
+      //ajout des chat neutres dans le captchat
+      for(var i=0; i<8; i++){
+      var index = getRandomInt(tabNeutres.length);
+      var source = "neutres/"+tabNeutres[index]+".jpg";
+      var imageChat = document.createElement('img');
+      imageChat.src = source;
+      tabCapcha.push(imageChat);
+      tabNeutres.splice(index, 1);
+      }
+      //ajout de l'image du chat singulier dans le tableau des chats
+      var singuliers = getRandomInt(14)+1;
+      var source = "singuliers/"+singuliers+".jpg";
+      var imageChat = document.createElement('img');
+      imageChat.src = source;
+      imageChat.setAttribute('class','winner');
+      tabCapcha.push(imageChat);
+      //Remplissage de la liste(ul) d'image
+      var listChat = document.getElementById('images');
+      for (var i = 0; i<9; i++){
+      var index = getRandomInt(tabCapcha.length);
+      var li = document.createElement('li');
+      li.appendChild(tabCapcha[index]);
+      li.setAttribute('id', i);
+      li.setAttribute('class','box');
+      li.setAttribute("onclick","checkWinner(this)");
+      listChat.appendChild(li);
+      tabCapcha.splice(index, 1);
+      }
+      //classse indice sert a stocker les indice par rapport au chat
+      function Indice(numIndice,monIndice){
+      var chat;
+      var indice;
+      this.chat = numIndice;
+      this.indice = monIndice;
+      function chat(){return this.chat;}
+      function indice(){return this.indice;}
+      }
+      //listes des indices des chats selon leur numero
+      var listIndice = [
+      new Indice("1","Saurez vous reconnaître un chat amoureux?"),
+      new Indice("2","Mon chat est une fausse blonde"),
+      new Indice("3","Ce chat là a fait une croix sur son oeil"),
+      new Indice("4","C'est encore le chat qui porte le chapeau"),
+      new Indice("5","Saurez-vous reconnaître le chat de Thomas Pesquet ?"),
+      new Indice("6","Ce chat voit tout en un"),
+      new Indice("7","Ne confondons pas une salicorne et un chat-licorne !"),
+      new Indice("8","Ce chat là a oublié de se faire vacciner contre la grippe"),
+      new Indice("9","Quel type de chat se cache derrière ses moustaches  ?"),
+      new Indice("10","Chaussez vos lunettes et montrez-moi le chat myope ?"),
+      new Indice("11","Après la fiancée du pirate, voici le chat du corsaire"),
+      new Indice("12","Chat du grand bleu"),
+      new Indice("13","C'est la reine d'Angleterre qui a perdu son chat"),
+      new Indice("14","Après les gilets jaunes, voici les foulards rouges"),
+      ];
+      //affichage de l'indice
+      for(var i = 0; i<listIndice.length; i++){
+      console.log(listIndice.chat);
+      if(listIndice[i].chat == singuliers){
+      document.getElementById('indice').innerHTML = listIndice[i].indice;
+      }
+      }
+      }
+      //verifie la si l'image cliqué est bonne
+      function checkWinner(objet){
+      var image = objet.firstChild;
+      if(image.className == "winner"){
+      document.location.href="victoire.html";
+      }
+      else{
+      alert("Ohhhhh Doooooowwwnnnnnn !!! nooooo");
+      restartCaptcha();
+      }
+      }
+      // function baisseTemps(){
+      //     var temps = document.getElementById("CountDownTimer").data-timer;
+      //     temps-10;
+      // }
+      function getRandomInt(max) {
+      return Math.floor(Math.random() * Math.floor(max));
+      }

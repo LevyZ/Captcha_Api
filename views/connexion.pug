@@ -1,0 +1,23 @@
+extends layout.pug
+
+block content
+  .main.container
+    .row
+      .col-md-12.col-md-offset-3
+        h1.display-4.m-b-2 Connectez-vous
+        if(inscription==1) 
+          p.green Vous avez bien été inscris !
+        if(inscription == 0)
+          p.red Une erreur est survenue lors de l'inscription !
+
+        p Accèdez à la page de connexion en entrant votre identifiant et votre mot de passe 
+        form.formCo(method='POST' action='/connexion')
+          div.form-group
+            label(for='login') Login
+            input.form-control(type='text' id='login'  name='login' required)
+          div.form-group
+            label(for='password') Mot de Passe
+            input.form-control(type='password' id='mdp' name='mdp' required)
+          button.btn.btn-primary(type='submit') Se connecter
+          br
+          a(href="/inscription") Vous n'est pas encore inscris ? Cliquez pour vous inscrire

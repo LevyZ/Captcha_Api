@@ -1,0 +1,53 @@
+
+extends interface.pug
+
+block contenu
+    .conteneur
+        h1 Enregistrement des photos
+        .row
+            form(method='POST',  action='/record_theme/'+id_theme)
+                - var i = 0;
+                each FileName in listFile
+                    -var cheminTotal = chemin + "/" + FileName    
+                    .col-md-4.case()
+                        img.imgCaptcha(src=cheminTotal)
+
+                        br
+                        br
+                        .form-group
+                            select.form-control.choix(name="choix")
+                                option(value="neutre" selected) Neutre 
+                                option(value="singulier") Singulier
+
+                        .form-group.indices(id="indice"+i)
+                            label(for='indice') Indice de l'image :
+                            input.form-control.indicesM(type='text', placeholder='', name='indice')
+
+                        input(type='hidden' name='nomFichier' value=FileName)
+
+                    - i++;
+                    
+                button.btn.btn-primary(type='submit') Enregistrez les images
+
+        script.
+
+            var selectElement  = document.getElementsByClassName('choix');
+
+            for( var i = 0; i < selectElement.length; i++){
+                AddEventChoix(selectElement, i);
+            }
+
+            function AddEventChoix(selectChoix, index){
+                selectChoix[index].addEventListener('change', (event) => {
+                    var lindice = "indice"+index;
+                    var indice = document.getElementById(lindice);
+                    indice.classList.toggle("indices");
+                })
+            }
+
+            function afficheIndice(){
+                var index = "#indice"+i;
+                var monIndice = $("#indice"+i);
+
+                console.log(monIndice);
+            } 

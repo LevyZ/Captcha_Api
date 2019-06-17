@@ -1,0 +1,26 @@
+extends layout.pug
+
+block content
+    #wrapper
+        // Sidebar
+        #sidebar-wrapper
+        ul.sidebar-nav
+            li.sidebar-brand
+                a(href='/accueil' class='marque')
+                    | GESTION DU CAPTCHA
+           
+            li
+                a(href='/ajout-theme') Ajoutez un thème
+            li
+                a(href='/themes') Les themes
+            li
+                a(href='/artistes') Les artistes
+            li
+                a(href='/generer') Génerer le captcha
+           
+        // /#sidebar-wrapper
+        // Page Content
+        #page-content-wrapper
+            block contenu
+        // /#page-content-wrapper
+        // /#wrapper

@@ -1,0 +1,17 @@
+extends interface.pug
+
+block contenu
+    .conteneur
+        h1 Choissiez un thème pour generer un captcha
+        
+        .row
+        .col-md-12.col-md-offset-3
+            form.formCo(method='POST' action='/generer')
+                div.form-group
+                    label(for='theme') Selectionnez un theme : 
+                    select.form-control( id='theme' name='theme' required)
+                        each theme in list
+                            option(value=theme.id)=theme.nom
+
+                button.btn.btn-primary(type='submit') Générer le captcha
+                br

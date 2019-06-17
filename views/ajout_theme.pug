@@ -1,0 +1,24 @@
+extends interface.pug 
+
+block contenu
+    .conteneur
+        h1.titre Ajoutez un nouveau theme
+
+        if(rep==1)
+            p.green Un nouveau thème à  bien été ajouté
+        if(rep==0)
+            p.red Une erreur s'est produite lors de l'ajout du thème
+
+        form(method='POST', enctype='multipart/form-data'  action='/ajout-theme')
+            .form-group
+                label(for='nom') Nom du theme
+                input#nom.form-control(type='text', placeholder='', name='nom', required)
+                br
+            
+            .form-group
+                label(for='fichier') Images du theme (.zip)
+                input#fichier.form-control-file(type='file', name='fichier', required, accept='.zip')
+                br
+
+            .form-group
+                input(type='submit', value='Upload')

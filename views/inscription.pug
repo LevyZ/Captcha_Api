@@ -1,0 +1,21 @@
+extends layout.pug
+
+block content
+  .main.container
+    .row
+      .col-md-12.col-md-offset-3
+        h1.display-4.m-b-2 Inscription d'artiste
+        p Renseignez les informations demandées pour vous inscrire
+        form.formCo(method='POST' action='/inscription')
+          div.form-group
+            label(for='nom') Nom
+            input.form-control(type='text' id='nom' placeholder="Nom d'artiste" name='nom' required)
+          div.form-group
+            label(for='Login') Login
+            input.form-control(type='text' id='login' placeholder='Login' name='login' required)
+          div.form-group
+            label(for='mdp') Mot de passe
+            input.form-control(type='password' id='mdp' placeholder='Mot de passe' name='mdp' required)
+
+          button.btn.btn-primary(type='submit') S'inscrire
+          br

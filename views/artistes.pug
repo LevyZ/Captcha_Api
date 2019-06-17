@@ -1,0 +1,24 @@
+extends interface.pug
+
+block contenu
+    .conteneur
+        h1 Liste des Artistes
+
+        table.table.listA
+            thead
+                tr
+                th(scope='col') Id
+                th(scope='col') Nom
+                th(scope='col') Url d'usage
+                th(scope='col') Action
+            tbody
+                each artiste in list
+                    tr
+                        th(scope='row')=artiste.id_artiste
+                        td=artiste.nom
+                        td
+                        td
+                            -var chemin = "/themes/"+artiste.id_artiste
+                            a(href=chemin)
+                                button.btn.btn-warning.voir Voir les themes
+               

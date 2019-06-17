@@ -1,0 +1,60 @@
+extends interface.pug
+   
+block contenu
+    .conteneur
+        .leCaptcha
+            .enTete
+                h2 Trouvez la réponse pour accèder au contenu
+                p(id="indice", name=winner)="INDICE : "+lindice
+
+            .monCaptcha.row
+                each image in lesImages
+                    -var nomImage = "image"+image.id;
+                    .imgCase(name=nomImage)
+                        img(src=image.cheminF)
+
+                button.btn.btn-light.rep#rep Envoyez Réponse
+                input(type="hidden" id="theme" name="leTheme" value=idTheme)
+        
+        //- p=chemin
+    script.
+        var lesImages = document.getElementsByClassName("imgCase");
+        var limage;
+        for(var i = 0; i < lesImages.length; i++)
+        {
+            var index = i;
+            lesImages[i].onclick = function() {
+                limage = this;
+            };
+            lesImages[i].addEventListener("click", () => {
+                selectImage(limage);
+            });
+        }
+
+        var reponse = document.getElementById('rep');
+        reponse.addEventListener("click", () => {
+            verifyCaptcha(limage);
+        });
+            
+            function selectImage(image)
+            {
+                var lesImages = document.getElementsByClassName("imgCase");
+                for(var i = 0; i < lesImages.length; i++){
+                    if(lesImages[i].classList.contains("selected")){
+                        lesImages[i].classList.remove("selected");
+                    }
+                }
+                image.classList.add("selected");
+            }
+
+            function verifyCaptcha(image){
+                var indice = document.getElementById('indice');
+                if(image.getAttribute('name') == indice.getAttribute('name')){
+                    var theme = document.getElementById('theme');
+                    var id_theme = theme.value;
+                    console.log(id_theme);
+                    window.location.href = "/victoire/"+id_theme;
+                }else {
+                    alert('Faux');
+                }
+            }

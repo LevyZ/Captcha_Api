@@ -1,0 +1,11 @@
+mixin Chat(file)
+    - var cheminTotal = chemin + "/" + file
+    div.col-md-4.case
+        img.imgCaptcha(src=cheminTotal)
+         .form-group
+            label(for='indice') Indice de l'image :
+            input#nom.form-control(type='text', placeholder='', name='indice', required)
+
+
+for file in fileList
+  +Chat(file)
